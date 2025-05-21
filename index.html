@@ -79,17 +79,23 @@
         }
 
         /* Адаптивность для мобильных устройств */
-        @media (max-width: 768px) {
-            #flipbook-container {
-                height: 60vh;
-                min-height: 300px;
-            }
-            
-            .controls button {
-                padding: 8px 15px;
-                font-size: 14px;
-            }
-        }
+      @media (max-width: 768px) {
+    #flipbook-container {
+        height: 55vh; /* было 60vh */
+        min-height: 280px; /* было 300px */
+    }
+}
+
+@media (max-width: 480px) {
+  #flipbook-container {
+    margin: 10px auto; /* было 20px auto */
+}
+
+.page {
+    border: 1px solid #fff; /* было 2px */
+    box-shadow: 0 0 10px rgba(0,0,0,0.3); /* было 15px */
+}
+}
 
         @media (max-width: 480px) {
             #flipbook-container {
@@ -103,12 +109,17 @@
                 gap: 5px;
             }
             
-            .controls button {
-                padding: 6px 12px;
-                font-size: 12px;
-                margin: 0 2px;
-            }
-        }
+           .controls button {
+    padding: 8px 15px; /* было 10px 20px */
+    margin: 0 3px; /* было 0 5px */
+}
+
+@media (max-width: 480px) {
+    .controls button {
+        padding: 5px 10px; /* было 6px 12px */
+        font-size: 11px; /* было 12px */
+    }
+}
     </style>
 </head>
 <body>
@@ -158,21 +169,21 @@
         let autoFlipInterval = null;
         let isAutoFlipping = true;
 
-        function calculateBookSize() {
-            const container = document.getElementById('flipbook-container');
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            
-            // Для мобильных делаем книгу уже
-            const isMobile = window.innerWidth <= 768;
-            const pageWidth = isMobile ? width * 0.9 : Math.min(width * 0.8, 800);
-            const pageHeight = isMobile ? height * 0.9 : Math.min(height * 0.95, 839);
-            
-            return {
-                width: pageWidth,
-                height: pageHeight
-            };
-        }
+       function calculateBookSize() {
+    const container = document.getElementById('flipbook-container');
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    
+    const isMobile = window.innerWidth <= 768;
+    // Уменьшаем коэффициент с 0.9 до 0.8 для мобильных и с 0.8 до 0.7 для десктопов
+    const pageWidth = isMobile ? width * 0.8 : Math.min(width * 0.7, 700); // было 0.9 и 0.8
+    const pageHeight = isMobile ? height * 0.85 : Math.min(height * 0.9, 750); // было 0.9 и 0.95
+    
+    return {
+        width: pageWidth,
+        height: pageHeight
+    };
+}
 
         function initFlipbook() {
             const sizes = calculateBookSize();
