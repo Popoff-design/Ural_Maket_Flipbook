@@ -6,7 +6,7 @@
     <title>Буклет архитектурных миниатюр "Урал на ладони"</title>
     <script src="page-flip.browser.js"></script>
     <style>
-       #flipbook {
+      #flipbook {
             width: 1600px; /* Две страницы: 800px * 2 */
             height: 839px; /* Высота страницы */
             margin: 20px auto;
@@ -43,6 +43,22 @@
         }
         .controls button:hover {
             background: #555;
+        }
+        @media (max-width: 1600px) {
+            #flipbook {
+                width: 800px; /* Уменьшенный разворот */
+                height: 420px;
+                transform: scale(0.5);
+                transform-origin: top center;
+            }
+            .page {
+                width: 400px;
+                height: 420px;
+            }
+            .page img {
+                width: 400px;
+                height: 420px;
+            }
         }
     </style>
 </head>
