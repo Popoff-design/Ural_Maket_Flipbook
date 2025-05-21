@@ -3,34 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Буклет архитектурных миниатюр "Урал на ладони"</title>
+    <title>Флипбук с разворотом</title>
     <script src="page-flip.browser.js"></script>
     <style>
+        /* Основные стили для флипбука */
         #flipbook {
-            width: 1600px; /* Две страницы: 800px * 2 */
-            height: 839px; /* Высота страницы */
+            width: 100%; /* Занимает всю ширину экрана */
+            max-width: 1000px; /* Ограничение по максимальной ширине для больших экранов */
+            height: 839px; /* Высота для одной страницы */
             margin: 20px auto;
-            border: 1px solid #ccc; /* Для наглядности */
-            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a); /* Тёмный градиент */
+            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
             display: flex;
             justify-content: center;
         }
+
         .page {
-            width: 800px; /* Точная ширина страницы */
-            height: 839px; /* Точная высота страницы */
+            width: 800px; /* Ширина страницы */
+            height: 839px; /* Высота страницы */
             background: white;
-            box-shadow: 0 0 15px rgba(0,0,0,0.4); /* Тень */
-            border: 2px solid #fff; /* Белая рамка */
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            border: 2px solid #fff;
         }
+
         .page img {
             width: 800px;
             height: 839px;
             object-fit: contain; /* Без растяжения */
         }
+
+        /* Кнопки */
         .controls {
             text-align: center;
             margin: 10px 0;
         }
+
         .controls button {
             padding: 10px 20px;
             margin: 0 5px;
@@ -41,23 +47,35 @@
             border: none;
             border-radius: 5px;
         }
+
         .controls button:hover {
             background: #555;
         }
-        @media (max-width: 1600px) {
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            /* Для мобильных устройств, флипбук заполняет всю ширину экрана */
             #flipbook {
-                width: 800px; /* Уменьшенный разворот */
-                height: 420px;
-                transform: scale(0.5);
-                transform-origin: top center;
+                width: 100%;
+                max-width: none; /* Убираем ограничение по максимальной ширине */
+                height: auto; /* Высота будет подстраиваться автоматически */
+                margin: 10px; /* Уменьшаем отступы */
             }
+
             .page {
-                width: 400px;
-                height: 420px;
+                width: 100%; /* Страница будет адаптироваться по ширине экрана */
+                height: auto; /* Высота будет подстраиваться автоматически */
+                margin-bottom: 20px; /* Отступ между страницами */
             }
+
             .page img {
-                width: 400px;
-                height: 420px;
+                width: 100%; /* Изображение займет всю ширину страницы */
+                height: auto; /* Подстроится по высоте */
+            }
+
+            .controls button {
+                font-size: 12px; /* Уменьшаем кнопки */
+                padding: 6px 10px;
             }
         }
     </style>
@@ -95,6 +113,7 @@
         <div class="page"><img src="page29.jpg" alt="Page 29"></div>
         <div class="page"><img src="page30.jpg" alt="Page 30"></div>
     </div>
+
     <div class="controls">
         <button onclick="flipPrev()">Назад</button>
         <button onclick="flipNext()">Вперёд</button>
