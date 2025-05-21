@@ -7,36 +7,42 @@
     <script src="page-flip.browser.js"></script>
     <style>
        #flipbook {
-    width: 100%; /* Занимает всю доступную ширину экрана */
-    max-width: 1000px; /* Ограничение максимальной ширины */
-    height: auto; /* Подстраивается под высоту */
-    margin: 20px auto;
-    background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
-    display: flex;
-    justify-content: center;
-}
-
-/* Стиль для страницы */
-.page {
-    width: 100%; /* Страница заполняет всю ширину контейнера */
-    height: auto; /* Высота подстраивается пропорционально */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Адаптивность для изображений */
-.page img {
-    width: 100%;
-    height: auto;
-    object-fit: contain; /* Изображения не растягиваются */
-}
-
-/* Мобильные стили */
-@media (max-width: 768px) {
-     #flipbook {
-        transform: scale(0.8); /* Уменьшаем флипбук на 20% для мобильных */
-    }
+            width: 1600px; /* Две страницы: 800px * 2 */
+            height: 839px; /* Высота страницы */
+            margin: 20px auto;
+            border: 1px solid #ccc; /* Для наглядности */
+            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a); /* Тёмный градиент */
+            display: flex;
+            justify-content: center;
+        }
+        .page {
+            width: 800px; /* Точная ширина страницы */
+            height: 839px; /* Точная высота страницы */
+            background: white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4); /* Тень */
+            border: 2px solid #fff; /* Белая рамка */
+        }
+        .page img {
+            width: 800px;
+            height: 839px;
+            object-fit: contain; /* Без растяжения */
+        }
+        .controls {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .controls button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .controls button:hover {
+            background: #555;
         }
     </style>
 </head>
