@@ -13,14 +13,15 @@
             height: 100%;
             overflow-x: hidden;
             font-family: Arial, sans-serif;
+            background: #2a2a2a;
         }
 
         #flipbook-container {
             width: 100%;
-            height: 60vh;
-            min-height: 300px;
+            height: 80vh; /* Увеличиваем высоту */
+            min-height: 500px; /* Минимальная высота для десктопа */
             margin: 0 auto;
-            padding-bottom: 50px;
+            padding-bottom: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,13 +30,12 @@
         #flipbook {
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+            background: #000;
         }
 
         .page {
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
-            border: 1px solid #ddd;
+            background: transparent !important;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -45,45 +45,54 @@
         .page img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: contain; /* Сохраняем пропорции */
         }
 
         .controls {
             position: fixed;
-            bottom: 10px;
+            bottom: 15px;
             left: 0;
             right: 0;
             text-align: center;
-            padding: 5px;
+            padding: 10px;
             z-index: 100;
         }
 
         .controls button {
-            padding: 8px 15px;
-            margin: 0 5px;
-            font-size: 14px;
-            background: #333;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            background: #444;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
-            min-width: 90px;
+            min-width: 100px;
         }
 
-        /* Только 2 критичных медиазапроса */
+        /* Десктопная версия (полноэкранная) */
+        @media (min-width: 1024px) {
+            #flipbook-container {
+                height: 90vh;
+                min-height: 600px;
+                max-width: none;
+            }
+            
+            .page img {
+                object-fit: cover; /* Заполняем пространство */
+            }
+        }
+
+        /* Мобильная адаптация */
         @media (max-width: 768px) {
             #flipbook-container {
-                height: 55vh;
-                min-height: 250px;
+                height: 65vh;
+                min-height: 300px;
+                padding-bottom: 50px;
             }
-        }
-
-        @media (max-width: 480px) {
-            #flipbook-container {
-                padding-bottom: 40px;
-            }
+            
             .controls button {
-                padding: 7px 12px;
+                padding: 8px 15px;
                 min-width: 80px;
             }
         }
@@ -92,8 +101,9 @@
 <body>
     <div id="flipbook-container">
         <div id="flipbook">
+            <!-- Все ваши страницы с изображениями -->
             <div class="page"><img src="page1.jpg" alt="Page 1"></div>
-            <!-- Все страницы -->
+            <!-- ... -->
             <div class="page"><img src="page30.jpg" alt="Page 30"></div>
         </div>
     </div>
@@ -110,9 +120,11 @@
         let isAutoFlipping = true;
 
         function calculateBookSize() {
-            const width = Math.min(800, window.innerWidth * 0.9);
-            const height = Math.min(700, window.innerHeight * 0.7);
-            return { width, height };
+            const isMobile = window.innerWidth <= 768;
+            return {
+                width: isMobile ? window.innerWidth * 0.95 : window.innerWidth * 0.98,
+                height: isMobile ? window.innerHeight * 0.6 : window.innerHeight * 0.85
+            };
         }
 
         function initFlipbook() {
@@ -121,14 +133,17 @@
             flipbook = new St.PageFlip(
                 document.getElementById('flipbook'),
                 {
-                    width,
-                    height,
+                    width: width,
+                    height: height,
                     showCover: true,
                     drawShadow: true,
                     flippingTime: 800,
                     useMouseEvents: true,
+                    usePortrait: false,
                     startPage: 0,
-                    mobileScrollSupport: true
+                    maxShadowOpacity: 0.7,
+                    mobileScrollSupport: true,
+                    singlePage: window.innerWidth <= 768
                 }
             );
 
@@ -136,6 +151,7 @@
             startAutoFlip();
         }
 
+        // Остальные функции без изменений
         function startAutoFlip() {
             autoFlipInterval = setInterval(() => {
                 if (!flipbook) return;
@@ -150,14 +166,19 @@
         }
 
         function toggleAutoFlip() {
-            isAutoFlipping ? stopAutoFlip() : startAutoFlip();
-            document.getElementById('pauseBtn').textContent = 
-                isAutoFlipping ? 'Пауза' : 'Возобновить';
+            if (isAutoFlipping) {
+                stopAutoFlip();
+                document.getElementById('pauseBtn').textContent = 'Возобновить';
+            } else {
+                startAutoFlip();
+                document.getElementById('pauseBtn').textContent = 'Пауза';
+            }
             isAutoFlipping = !isAutoFlipping;
         }
 
         function stopAutoFlip() {
             clearInterval(autoFlipInterval);
+            autoFlipInterval = null;
         }
 
         function flipNext() {
@@ -167,6 +188,17 @@
         function flipPrev() {
             if (flipbook) flipbook.flipPrev();
         }
+
+        window.addEventListener('resize', () => {
+            if (flipbook) {
+                const sizes = calculateBookSize();
+                flipbook.updateOptions({
+                    width: sizes.width,
+                    height: sizes.height,
+                    singlePage: window.innerWidth <= 768
+                });
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', initFlipbook);
     </script>
