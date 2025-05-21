@@ -3,66 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Флипбук "Урал на ладони"</title>
+    <meta property="og:title" content='Буклет архитектурных миниатюр "Урал на ладони"'>
+    <meta property="og:description" content="Листаем онлайн, эффект настоящей книги.">
+    <meta property="og:image" content="https://popoff-design.github.io/Ural_Maket_Flipbook/page1.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://popoff-design.github.io/Ural_Maket_Flipbook/">
+    <title>Буклет архитектурных миниатюр "Урал на ладони"</title>
+    <script src="page-flip.browser.js"></script>
     <style>
-        * {
+        /* Сброс стилей и базовые настройки */
+        body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background: #000;
-            overflow-x: hidden;
-            height: 100vh;
-        }
-        #flipbook-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-        }
-        #flipbook {
             width: 100%;
             height: 100%;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
         }
-        .page {
-            background: #000;
+
+        /* Основные стили для флипбука */
+        #flipbook-container {
+            width: 100%;
+            max-width: 1000px;
+            height: 70vh; /* Гибкая высота */
+            min-height: 400px; /* Минимальная высота */
+            margin: 20px auto;
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .page img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+
+        #flipbook {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
         }
-        .controls {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
+
+        .page {
+            background: white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            border: 2px solid #fff;
             display: flex;
             justify-content: center;
-            gap: 15px;
-            z-index: 100;
+            align-items: center;
+            overflow: hidden;
         }
+
+        .page img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Кнопки */
+        .controls {
+            text-align: center;
+            margin: 10px 0;
+            padding: 0 10px;
+        }
+
         .controls button {
-            padding: 12px 24px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            border: 1px solid #fff;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 10px 20px;
+            margin: 0 5px;
             font-size: 16px;
+            cursor: pointer;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
         }
+
+        .controls button:hover {
+            background: #555;
+        }
+
+        /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
-            .controls {
-                bottom: 10px;
-                gap: 8px;
+            #flipbook-container {
+                height: 60vh;
+                min-height: 300px;
             }
+            
             .controls button {
-                padding: 8px 16px;
+                padding: 8px 15px;
                 font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #flipbook-container {
+                height: 50vh;
+                min-height: 250px;
+            }
+            
+            .controls {
+                display: flex;
+                justify-content: center;
+                gap: 5px;
+            }
+            
+            .controls button {
+                padding: 6px 12px;
+                font-size: 12px;
+                margin: 0 2px;
             }
         }
     </style>
@@ -70,93 +114,167 @@
 <body>
     <div id="flipbook-container">
         <div id="flipbook">
-            <div class="page"><img src="page1.jpg" alt=""></div>
-            <div class="page"><img src="page2.jpg" alt=""></div>
-            <!-- Добавьте все остальные страницы -->
+            <div class="page"><img src="page1.jpg" alt="Page 1"></div>
+            <div class="page"><img src="page2.jpg" alt="Page 2"></div>
+            <div class="page"><img src="page3.jpg" alt="Page 3"></div>
+            <div class="page"><img src="page4.jpg" alt="Page 4"></div>
+            <div class="page"><img src="page5.jpg" alt="Page 5"></div>
+            <div class="page"><img src="page6.jpg" alt="Page 6"></div>
+            <div class="page"><img src="page7.jpg" alt="Page 7"></div>
+            <div class="page"><img src="page8.jpg" alt="Page 8"></div>
+            <div class="page"><img src="page9.jpg" alt="Page 9"></div>
+            <div class="page"><img src="page10.jpg" alt="Page 10"></div>
+            <div class="page"><img src="page11.jpg" alt="Page 11"></div>
+            <div class="page"><img src="page12.jpg" alt="Page 12"></div>
+            <div class="page"><img src="page13.jpg" alt="Page 13"></div>
+            <div class="page"><img src="page14.jpg" alt="Page 14"></div>
+            <div class="page"><img src="page15.jpg" alt="Page 15"></div>
+            <div class="page"><img src="page16.jpg" alt="Page 16"></div>
+            <div class="page"><img src="page17.jpg" alt="Page 17"></div>
+            <div class="page"><img src="page18.jpg" alt="Page 18"></div>
+            <div class="page"><img src="page19.jpg" alt="Page 19"></div>
+            <div class="page"><img src="page20.jpg" alt="Page 20"></div>
+            <div class="page"><img src="page21.jpg" alt="Page 21"></div>
+            <div class="page"><img src="page22.jpg" alt="Page 22"></div>
+            <div class="page"><img src="page23.jpg" alt="Page 23"></div>
+            <div class="page"><img src="page24.jpg" alt="Page 24"></div>
+            <div class="page"><img src="page25.jpg" alt="Page 25"></div>
+            <div class="page"><img src="page26.jpg" alt="Page 26"></div>
+            <div class="page"><img src="page27.jpg" alt="Page 27"></div>
+            <div class="page"><img src="page28.jpg" alt="Page 28"></div>
+            <div class="page"><img src="page29.jpg" alt="Page 29"></div>
+            <div class="page"><img src="page30.jpg" alt="Page 30"></div>
         </div>
     </div>
 
     <div class="controls">
         <button onclick="flipPrev()">Назад</button>
         <button onclick="flipNext()">Вперёд</button>
-        <button onclick="toggleAutoFlip()" id="pauseBtn">Пауза</button>
+        <button id="pauseBtn" onclick="toggleAutoFlip()">Пауза</button>
     </div>
 
-    <script src="page-flip.browser.js"></script>
     <script>
-        // Полноэкранный режим всегда
-        function getBookSize() {
+        let flipbook = null;
+        let autoFlipInterval = null;
+        let isAutoFlipping = true;
+
+        function calculateBookSize() {
+            const container = document.getElementById('flipbook-container');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            
+            // Для мобильных делаем книгу уже
+            const isMobile = window.innerWidth <= 768;
+            const pageWidth = isMobile ? width * 0.9 : Math.min(width * 0.8, 800);
+            const pageHeight = isMobile ? height * 0.9 : Math.min(height * 0.95, 839);
+            
             return {
-                width: document.documentElement.clientWidth,
-                height: document.documentElement.clientHeight
+                width: pageWidth,
+                height: pageHeight
             };
         }
 
-        let flipbook;
-        let autoFlipInterval;
-        let isAutoFlipping = true;
-
-        function initFlipBook() {
-            const { width, height } = getBookSize();
+        function initFlipbook() {
+            const sizes = calculateBookSize();
             
-            flipbook = new St.PageFlip(
-                document.getElementById("flipbook"),
-                {
-                    width: width,
-                    height: height,
-                    showCover: true,
-                    maxShadowOpacity: 0.5,
-                    mobileScrollSupport: true,
-                    swipeDistance: 30
-                }
-            );
+            try {
+                console.log('Инициализация флипбука с размерами:', sizes);
+                flipbook = new St.PageFlip(
+                    document.getElementById('flipbook'),
+                    {
+                        width: sizes.width,
+                        height: sizes.height,
+                        showCover: true,
+                        drawShadow: true,
+                        flippingTime: 800,
+                        useMouseEvents: true,
+                        usePortrait: false,
+                        startPage: 0,
+                        maxShadowOpacity: 0.5,
+                        mobileScrollSupport: true,
+                        singlePage: window.innerWidth <= 768 // На мобильных показываем по одной странице
+                    }
+                );
 
-            flipbook.loadFromHTML(document.querySelectorAll(".page"));
-            startAutoFlip();
+                flipbook.loadFromHTML(document.querySelectorAll('.page'));
+                console.log('Флипбук успешно инициализирован');
+                startAutoFlip();
+            } catch (error) {
+                console.error('Ошибка инициализации флипбука:', error);
+            }
         }
 
         function startAutoFlip() {
-            stopAutoFlip();
-            autoFlipInterval = setInterval(() => {
-                if (!flipbook) return;
-                if (flipbook.getCurrentPageIndex() < flipbook.getPageCount() - 1) {
-                    flipbook.flipNext();
-                } else {
-                    flipbook.flipTo(0);
-                }
-            }, 3000);
+            if (!autoFlipInterval) {
+                console.log('Запуск автоперелистывания');
+                autoFlipInterval = setInterval(() => {
+                    if (!flipbook) return;
+                    const currentPage = flipbook.getCurrentPageIndex();
+                    const totalPages = flipbook.getPageCount();
+                    console.log('Текущая страница:', currentPage, 'Всего страниц:', totalPages);
+                    if (currentPage < totalPages - 2) {
+                        flipbook.flipNext();
+                    } else {
+                        flipbook.flipTo(0);
+                    }
+                }, 4500);
+            }
         }
 
         function stopAutoFlip() {
             if (autoFlipInterval) {
+                console.log('Остановка автоперелистывания');
                 clearInterval(autoFlipInterval);
                 autoFlipInterval = null;
             }
         }
 
         function toggleAutoFlip() {
+            if (!flipbook) {
+                console.error('Флипбук не инициализирован');
+                return;
+            }
+            if (isAutoFlipping) {
+                stopAutoFlip();
+                document.getElementById('pauseBtn').textContent = 'Возобновить';
+            } else {
+                startAutoFlip();
+                document.getElementById('pauseBtn').textContent = 'Пауза';
+            }
             isAutoFlipping = !isAutoFlipping;
-            document.getElementById("pauseBtn").textContent = 
-                isAutoFlipping ? "Пауза" : "Продолжить";
-            isAutoFlipping ? startAutoFlip() : stopAutoFlip();
         }
 
         function flipNext() {
-            flipbook?.flipNext();
+            if (flipbook) {
+                flipbook.flipNext();
+                console.log('Перелистывание вперёд');
+            } else {
+                console.error('Флипбук не инициализирован');
+            }
         }
 
         function flipPrev() {
-            flipbook?.flipPrev();
+            if (flipbook) {
+                flipbook.flipPrev();
+                console.log('Перелистывание назад');
+            } else {
+                console.error('Флипбук не инициализирован');
+            }
         }
 
-        // Реакция на изменение размера
-        window.addEventListener("resize", () => {
-            const { width, height } = getBookSize();
-            flipbook?.updateOptions({ width, height });
+        // Реинициализация при изменении размера окна
+        window.addEventListener('resize', () => {
+            if (flipbook) {
+                const sizes = calculateBookSize();
+                flipbook.updateOptions({
+                    width: sizes.width,
+                    height: sizes.height,
+                    singlePage: window.innerWidth <= 768
+                });
+            }
         });
 
-        // Запуск
-        document.addEventListener("DOMContentLoaded", initFlipBook);
+        document.addEventListener('DOMContentLoaded', initFlipbook);
     </script>
 </body>
 </html>
