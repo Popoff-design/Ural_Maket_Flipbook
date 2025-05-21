@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Флипбук с разворотом и кнопками</title>
+    <script src="page-flip.browser.js"></script>
+    <style>
+        #flipbook {
+            width: 1600px; /* Две страницы: 800px * 2 */
+            height: 839px; /* Высота страницы */
+            margin: 20px auto;
+            border: 1px solid #ccc; /* Для наглядности */
+            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a); /* Тёмный градиент */
+            display: flex;
+            justify-content: center;
+        }
+        .page {
+            width: 800px; /* Точная ширина страницы */
+            height: 839px; /* Точная высота страницы */
+            background: white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4); /* Тень */
+            border: 2px solid #fff; /* Белая рамка */
+        }
+        .page img {
+            width: 800px;
+            height: 839px;
+            object-fit: contain; /* Без растяжения */
+        }
+        .controls {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .controls button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .controls button:hover {
+            background: #555;
+        }
+        @media (max-width: 1600px) {
+            #flipbook {
+                width: 800px; /* Уменьшенный разворот */
+                height: 420px;
+                transform: scale(0.5);
+                transform-origin: top center;
+            }
+            .page {
+                width: 400px;
+                height: 420px;
+            }
+            .page img {
+                width: 400px;
+                height: 420px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="flipbook">
+        <div class="page"><img src="page1.jpg" alt="Page 1"></div>
+        <div class="page"><img src="page2.jpg" alt="Page 2"></div>
+        <div class="page"><img src="page3.jpg" alt="Page 3"></div>
+        <div class="page"><img src="page4.jpg" alt="Page 4"></div>
+        <div class="page"><img src="page5.jpg" alt="Page 5"></div>
+        <div class="page"><img src="page6.jpg" alt="Page 6"></div>
+        <div class="page"><img src="page7.jpg" alt="Page 7"></div>
+        <div class="page"><img src="page8.jpg" alt="Page 8"></div>
+        <div class="page"><img src="page9.jpg" alt="Page 9"></div>
+        <div class="page"><img src="page10.jpg" alt="Page 10"></div>
+        <div class="page"><img src="page11.jpg" alt="Page 11"></div>
+        <div class="page"><img src="page12.jpg" alt="Page 12"></div>
+        <div class="page"><img src="page13.jpg" alt="Page 13"></div>
+        <div class="page"><img src="page14.jpg" alt="Page 14"></div>
+        <div class="page"><img src="page15.jpg" alt="Page 15"></div>
+        <div class="page"><img src="page16.jpg" alt="Page 16"></div>
+        <div class="page"><img src="page17.jpg" alt="Page 17"></div>
+        <div class="page"><img src="page18.jpg" alt="Page 18"></div>
+        <div class="page"><img src="page19.jpg" alt="Page 19"></div>
+        <div class="page"><img src="page20.jpg" alt="Page 20"></div>
+        <div class="page"><img src="page21.jpg" alt="Page 21"></div>
+        <div class="page"><img src="page22.jpg" alt="Page 22"></div>
+        <div class="page"><img src="page23.jpg" alt="Page 23"></div>
+        <div class="page"><img src="page24.jpg" alt="Page 24"></div>
+        <div class="page"><img src="page25.jpg" alt="Page 25"></div>
+        <div class="page"><img src="page26.jpg" alt="Page 26"></div>
+        <div class="page"><img src="page27.jpg" alt="Page 27"></div>
+        <div class="page"><img src="page28.jpg" alt="Page 28"></div>
+        <div class="page"><img src="page29.jpg" alt="Page 29"></div>
+        <div class="page"><img src="page30.jpg" alt="Page 30"></div>
+    </div>
+    <div class="controls">
+        <button onclick="flipPrev()">Назад</button>
+        <button onclick="flipNext()">Вперёд</button>
+        <button id="pauseBtn" onclick="toggleAutoFlip()">Пауза</button>
+    </div>
+
+    <script>
+        let flipbook = null;
+        let autoFlipInterval = null;
+        let isAutoFlipping = true;
+
+        function startAutoFlip() {
+            if (!autoFlipInterval) {
+                console.log('Запуск автоперелистывания');
+                autoFlipInterval = setInterval(() => {
+                    if (!flipbook) return;
+                    const currentPage = flipbook.getCurrentPageIndex();
+                    const totalPages = flipbook.getPageCount();
+                    console.log('Текущая страница:', currentPage, 'Всего страниц:', totalPages);
+                    if (currentPage < totalPages - 2) {
+                        flipbook.flipNext();
+                    } else {
+                        flipbook.flipTo(0); // Зациклить к page1.jpg
+                    }
+                }, 4500); // 4.5 секунды
+            }
+        }
+
+        function stopAutoFlip() {
+            if (autoFlipInterval) {
+                console.log('Остановка автоперелистывания');
+                clearInterval(autoFlipInterval);
+                autoFlipInterval = null;
+            }
+        }
+
+        function toggleAutoFlip() {
+            if (!flipbook) {
+                console.error('Флипбук не инициализирован');
+                return;
+            }
+            if (isAutoFlipping) {
+                stopAutoFlip();
+                document.getElementById('pauseBtn').textContent = 'Возобновить';
+            } else {
+                startAutoFlip();
+                document.getElementById('pauseBtn').textContent = 'Пауза';
+            }
+            isAutoFlipping = !isAutoFlipping;
+        }
+
+        function flipNext() {
+            if (flipbook) {
+                flipbook.flipNext();
+                console.log('Перелистывание вперёд');
+            } else {
+                console.error('Флипбук не инициализирован');
+            }
+        }
+
+        function flipPrev() {
+            if (flipbook) {
+                flipbook.flipPrev();
+                console.log('Перелистывание назад');
+            } else {
+                console.error('Флипбук не инициализирован');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                console.log('Инициализация флипбука...');
+                flipbook = new St.PageFlip(document.getElementById('flipbook'), {
+                    width: 800, // Ширина одной страницы
+                    height: 839, // Высота страницы
+                    showCover: true,
+                    drawShadow: true,
+                    flippingTime: 800, // 0.8 секунды
+                    useMouseEvents: true,
+                    usePortrait: false, // Разворот
+                    startPage: 0,
+                    maxShadowOpacity: 0.5,
+                    mobileScrollSupport: true,
+                    singlePage: false
+                });
+
+                flipbook.loadFromHTML(document.querySelectorAll('.page'));
+                console.log('Флипбук успешно инициализирован');
+                startAutoFlip();
+            } catch (error) {
+                console.error('Ошибка инициализации флипбука:', error);
+            }
+        });
+    </script>
+</body>
+</html>
